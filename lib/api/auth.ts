@@ -5,6 +5,8 @@ import {
   updateProfile as firebaseUpdateProfile,
   sendPasswordResetEmail,
   onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from 'firebase/auth';
 import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase/client';
@@ -34,6 +36,30 @@ export async function signUp(email: string, password: string, fullName: string) 
 export async function signIn(email: string, password: string) {
   const credential = await signInWithEmailAndPassword(auth, email, password);
   const { user } = credential;
+  return {
+    user: {
+      id: user.uid,
+      email: user.email ?? '',
+      user_metadata: { full_name: user.displayName ?? undefined },
+    },
+  };
+}
+
+export async function signInWithGoogle() {
+  const provider = new GoogleAuthProvider();
+  const credential = await signInWithPopup(auth, provider);
+  const { user } = credential;
+
+  const profileRef = doc(db, 'profiles', user.uid);
+  const profileDoc = await getDoc(profileRef);
+  if (!profileDoc.exists()) {
+    await setDoc(profileRef, {
+      full_name: user.displayName || '',
+      role: 'customer',
+      created_at: new Date().toISOString(),
+    });
+  }
+
   return {
     user: {
       id: user.uid,

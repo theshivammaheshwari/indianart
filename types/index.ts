@@ -141,7 +141,7 @@ export const defaultSettings: SiteSettings = {
   phone: '+91 9468955596',
   whatsapp: '+91 9468955596',
   email: 'shivamtensor@gmail.com',
-  address: 'Jaipur, Rajasthan, India',
+  address: 'E-127 Kataria Colony Ram Nagar Sodala Jaipur 302019 Rajasthan India',
   locationUrl: 'https://maps.app.goo.gl/xZSbBbjXNf8oi59p7',
   instagram: 'https://www.instagram.com/shivamtensor',
   facebook: 'https://www.facebook.com/shivamtensor',

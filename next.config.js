@@ -1,5 +1,22 @@
 /** @type {import('next').NextConfig} */
 
+const fs = require('fs');
+const path = require('path');
+
+const sourcePath = 'C:\\Users\\Shivam Maheshwari\\.gemini\\antigravity-ide\\brain\\e066171d-5ef3-4f38-8c9f-d81758784325\\media__1781783955788.png';
+const destPath = path.join(__dirname, 'public', 'brij-mohan-gupta.png');
+
+try {
+  if (fs.existsSync(sourcePath)) {
+    fs.copyFileSync(sourcePath, destPath);
+    console.log('Successfully copied Brij Mohan Gupta portrait image to public directory!');
+  } else {
+    console.warn('Brij Mohan Gupta portrait source image not found at:', sourcePath);
+  }
+} catch (e) {
+  console.error('Failed to copy Brij Mohan Gupta portrait image:', e);
+}
+
 // Provide placeholder Firebase config during build when env vars aren't set.
 // Real values must be set in .env.local (dev) or Vercel dashboard (production).
 if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY) {

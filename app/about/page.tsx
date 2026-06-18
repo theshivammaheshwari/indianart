@@ -16,13 +16,13 @@ import { defaultSettings } from '@/types';
 const stats = [
   { value: '500+', label_en: 'Original Paintings', label_hi: 'मूल पेंटिंग्स' },
   { value: '1000+', label_en: 'Happy Collectors', label_hi: 'खुश कलेक्टर' },
-  { value: '20+', label_en: 'Years of Excellence', label_hi: 'उत्कृष्टता के वर्ष' },
+  { value: '60+', label_en: 'Years of Excellence', label_hi: 'उत्कृष्टता के वर्ष' },
   { value: '50+', label_en: 'Countries Reached', label_hi: 'देशों में पहुंच' },
 ];
 
 const journey = [
   {
-    year: '2004',
+    year: '1960',
     title_en: 'The Beginning',
     title_hi: 'शुरुआत',
     description_en: 'Started with a small studio in Jaipur, passionate about preserving traditional Indian art.',
@@ -128,8 +128,8 @@ export default function AboutPage() {
               </h1>
               <p className="text-muted-foreground text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto">
                 {t(
-                  'For over two decades, we have been breathing life into canvas — preserving the timeless traditions of Indian art and bringing them to homes across the world.',
-                  'दो दशकों से अधिक समय से, हम कैनवास में जान फूंक रहे हैं — भारतीय कला की शाश्वत परंपराओं को संरक्षित करते हुए और उन्हें दुनिया भर के घरों तक पहुंचाते हुए।'
+                  'For over six decades, we have been breathing life into canvas — preserving the timeless traditions of Indian art and bringing them to homes across the world.',
+                  'छह दशकों से अधिक समय से, हम कैनवास में जान फूंक रहे हैं — भारतीय कला की शाश्वत परंपराओं को संरक्षित करते हुए और उन्हें दुनिया भर के घरों तक पहुंचाते हुए।'
                 )}
               </p>
             </motion.div>
@@ -177,10 +177,10 @@ export default function AboutPage() {
                 <div className="relative bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/10 rounded-3xl overflow-hidden flex items-center justify-center border border-amber-200/50">
                   {/* Central art motif */}
                   <div className="text-center p-12">
-                    <div className="w-32 h-32 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center mx-auto mb-6 shadow-2xl">
-                      <span className="font-display text-5xl font-bold text-white">S</span>
+                    <div className="w-32 h-32 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center mx-auto mb-6 shadow-2xl overflow-hidden">
+                      <img src="/brij-mohan-gupta.png" alt="Brij Mohan Gupta" className="w-full h-full object-cover" />
                     </div>
-                    <div className="font-display text-2xl font-bold text-amber-700 dark:text-amber-400">Shivam Maheshwari</div>
+                    <div className="font-display text-2xl font-bold text-amber-700 dark:text-amber-400">Brij Mohan Gupta</div>
                     <div className="text-sm text-muted-foreground mt-1">{t('Founder & Artist', 'संस्थापक और कलाकार')}</div>
                     <div className="flex justify-center gap-3 mt-4">
                       <a href={defaultSettings.instagram} target="_blank" rel="noopener noreferrer"
@@ -230,8 +230,8 @@ export default function AboutPage() {
 
               <p className="text-muted-foreground leading-relaxed">
                 {t(
-                  'Born in the colorful land of Rajasthan, Shivam Maheshwari grew up surrounded by the rich artistic traditions of Indian miniature paintings, wall art, and spiritual iconography. With over 20 years of experience in traditional and contemporary Indian art, each painting is a story of devotion, culture, and timeless beauty.',
-                  'राजस्थान की रंगीन भूमि में जन्मे, शिवम माहेश्वरी भारतीय लघु पेंटिंग, दीवार कला और आध्यात्मिक चिह्न चित्रण की समृद्ध कलात्मक परंपराओं से घिरे हुए बड़े हुए। पारंपरिक और समकालीन भारतीय कला में 20+ वर्षों के अनुभव के साथ, प्रत्येक पेंटिंग भक्ति, संस्कृति और कालातीत सुंदरता की कहानी है।'
+                  'Born in the colorful land of Rajasthan, Brij Mohan Gupta grew up surrounded by the rich artistic traditions of Indian miniature paintings, wall art, and spiritual iconography. With over 60 years of experience in traditional and contemporary Indian art, each painting is a story of devotion, culture, and timeless beauty.',
+                  'राजस्थान की रंगीन भूमि में जन्मे, बृज मोहन गुप्ता भारतीय लघु पेंटिंग, दीवार कला और आध्यात्मिक चिह्न चित्रण की समृद्ध कलात्मक परंपराओं से घिरे हुए बड़े हुए। पारंपरिक और समकालीन भारतीय कला में 60+ वर्षों के अनुभव के साथ, प्रत्येक पेंटिंग भक्ति, संस्कृति और कालातीत सुंदरता की कहानी है।'
                 )}
               </p>
 
@@ -254,7 +254,7 @@ export default function AboutPage() {
                 <a href={defaultSettings.locationUrl} target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-amber-600 transition-colors">
                   <MapPin className="h-4 w-4 text-amber-500" />
-                  Jaipur, Rajasthan, India
+                  {defaultSettings.address}
                   <ChevronRight className="h-3 w-3" />
                 </a>
               </div>

@@ -9,17 +9,18 @@ import { Package, Heart, ShoppingBag, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { useAuthStore, useLocaleStore, useWishlistStore } from '@/store';
+import { useAuthStore, useLocaleStore } from '@/store';
 import { getOrdersByUser } from '@/lib/api/orders';
+import { loadUserWishlist } from '@/lib/api/database';
 import { getPaintingById } from '@/lib/api/paintings';
 import type { Order, Painting } from '@/types';
 
 export default function DashboardPage() {
   const { user } = useAuthStore();
   const { t } = useLocaleStore();
-  const { items: wishlistItems } = useWishlistStore();
   const [orders, setOrders] = useState<Order[]>([]);
   const [wishlistPaintings, setWishlistPaintings] = useState<Painting[]>([]);
+  const [wishlistCount, setWishlistCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,10 +28,14 @@ export default function DashboardPage() {
       if (!user) return;
       setLoading(true);
       try {
-        const userOrders = await getOrdersByUser(user.id);
+        const [userOrders, savedWishlistIds] = await Promise.all([
+          getOrdersByUser(user.id),
+          loadUserWishlist(user.id),
+        ]);
         setOrders(userOrders);
+        setWishlistCount(savedWishlistIds.length);
         const paintings = await Promise.all(
-          wishlistItems.map((id) => getPaintingById(id))
+          savedWishlistIds.map((id) => getPaintingById(id))
         );
         setWishlistPaintings(paintings.filter((p): p is Painting => p !== null));
       } catch (error) {
@@ -40,7 +45,7 @@ export default function DashboardPage() {
       }
     }
     loadData();
-  }, [user, wishlistItems]);
+  }, [user]);
 
   if (!user) return null;
 
@@ -75,7 +80,7 @@ export default function DashboardPage() {
               <Heart className="h-6 w-6 text-red-500" />
             </div>
             <div>
-              <p className="text-2xl font-bold">{wishlistItems.length}</p>
+              <p className="text-2xl font-bold">{loading ? '—' : wishlistCount}</p>
               <p className="text-sm text-muted-foreground">{t('Wishlist', 'इच्छा सूची')}</p>
             </div>
           </CardContent>

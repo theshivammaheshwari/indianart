@@ -3,10 +3,9 @@
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Menu, X, ShoppingBag, Heart, Search, User, Sun, Moon, Globe
+  Menu, X, ShoppingBag, Heart, Search, User, Globe
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCartStore, useWishlistStore, useLocaleStore, useUIStore, useSearchStore, useAuthStore } from '@/store';
@@ -22,7 +21,6 @@ const navLinks = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
   const { locale, setLocale, t } = useLocaleStore();
   const { items } = useCartStore();
   const { items: wishlistItems } = useWishlistStore();
@@ -32,9 +30,7 @@ export function Navbar() {
 
   useEffect(() => {
     setMounted(true);
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -58,15 +54,15 @@ export function Navbar() {
             <motion.div
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.5 }}
-              className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center"
+              className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-md shrink-0"
             >
-              <span className="font-display font-bold text-white text-lg">I</span>
+              <span className="font-display font-bold text-white text-lg select-none">I</span>
             </motion.div>
             <div className="hidden sm:block">
-              <h1 className="font-display text-lg lg:text-xl font-bold gold-text">
+              <h1 className="font-display text-lg lg:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-600 via-orange-500 to-amber-600">
                 Indian Movies Art
               </h1>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground leading-none">
                 {t('Art Gallery', 'आर्ट गैलरी')}
               </p>
             </div>
@@ -134,21 +130,6 @@ export function Navbar() {
                 <span className="sr-only">Account</span>
               </Button>
             </Link>
-
-            {mounted && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              >
-                {theme === 'dark' ? (
-                  <Sun className="h-5 w-5" />
-                ) : (
-                  <Moon className="h-5 w-5" />
-                )}
-                <span className="sr-only">Toggle theme</span>
-              </Button>
-            )}
 
             <Button
               variant="ghost"

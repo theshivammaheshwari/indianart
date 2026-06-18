@@ -126,8 +126,10 @@ export interface SiteSettings {
   whatsapp: string;
   email: string;
   address: string;
+  locationUrl: string;
   instagram: string;
   facebook: string;
+  linkedin: string;
   freeShippingThreshold: number;
   shippingCharge: number;
 }
@@ -140,8 +142,10 @@ export const defaultSettings: SiteSettings = {
   whatsapp: '+91 9468955596',
   email: 'shivamtensor@gmail.com',
   address: 'Jaipur, Rajasthan, India',
-  instagram: 'https://instagram.com/indianmoviesart',
-  facebook: 'https://facebook.com/indianmoviesart',
+  locationUrl: 'https://maps.app.goo.gl/xZSbBbjXNf8oi59p7',
+  instagram: 'https://www.instagram.com/shivamtensor',
+  facebook: 'https://www.facebook.com/shivamtensor',
+  linkedin: 'https://www.linkedin.com/in/shivamtensor/',
   freeShippingThreshold: 5000,
   shippingCharge: 200,
 };

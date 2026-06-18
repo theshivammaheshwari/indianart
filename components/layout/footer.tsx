@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
-  Instagram, Facebook, Mail, Phone, MapPin, Heart
+  Instagram, Facebook, Mail, Phone, MapPin, Heart, Linkedin
 } from 'lucide-react';
 import { useLocaleStore } from '@/store';
 import { defaultSettings } from '@/types';
@@ -64,10 +64,15 @@ export function Footer() {
                 <Mail className="h-4 w-4" />
                 <span>{defaultSettings.email}</span>
               </a>
-              <div className="flex items-start gap-3 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4 mt-0.5" />
+              <a
+                href={defaultSettings.locationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 text-sm text-muted-foreground hover:text-amber-600 transition-colors"
+              >
+                <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
                 <span>{defaultSettings.address}</span>
-              </div>
+              </a>
             </div>
 
             <div className="flex gap-3">
@@ -90,6 +95,16 @@ export function Footer() {
                 className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all"
               >
                 <Facebook className="h-5 w-5" />
+              </motion.a>
+              <motion.a
+                href={defaultSettings.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-blue-700 hover:text-white transition-all"
+              >
+                <Linkedin className="h-5 w-5" />
               </motion.a>
               <motion.a
                 href={`https://wa.me/${defaultSettings.whatsapp.replace(/[^0-9]/g, '')}`}

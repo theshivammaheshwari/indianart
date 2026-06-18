@@ -28,16 +28,25 @@ export default function DashboardPage() {
       if (!user) return;
       setLoading(true);
       try {
-        const [userOrders, savedWishlistIds] = await Promise.all([
-          getOrdersByUser(user.id),
-          loadUserWishlist(user.id),
-        ]);
-        setOrders(userOrders);
-        setWishlistCount(savedWishlistIds.length);
-        const paintings = await Promise.all(
-          savedWishlistIds.map((id) => getPaintingById(id))
-        );
-        setWishlistPaintings(paintings.filter((p): p is Painting => p !== null));
+        // Fetch orders
+        try {
+          const userOrders = await getOrdersByUser(user.id);
+          setOrders(userOrders);
+        } catch (orderError) {
+          console.error('Failed to load orders:', orderError);
+        }
+
+        // Fetch wishlist
+        try {
+          const savedWishlistIds = await loadUserWishlist(user.id);
+          setWishlistCount(savedWishlistIds.length);
+          const paintings = await Promise.all(
+            savedWishlistIds.map((id) => getPaintingById(id))
+          );
+          setWishlistPaintings(paintings.filter((p): p is Painting => p !== null));
+        } catch (wishlistError) {
+          console.error('Failed to load wishlist:', wishlistError);
+        }
       } catch (error) {
         console.error('Failed to load dashboard data:', error);
       } finally {

@@ -124,11 +124,12 @@ export async function updatePaymentStatus(
 export async function getOrdersByUser(userId: string): Promise<Order[]> {
   const q = query(
     collection(db, 'orders'),
-    where('user_id', '==', userId),
-    orderBy('created_at', 'desc')
+    where('user_id', '==', userId)
   );
   const snapshot = await getDocs(q);
-  return snapshot.docs.map((d) => mapOrderDoc(d.id, d.data()));
+  const orders = snapshot.docs.map((d) => mapOrderDoc(d.id, d.data()));
+  // Sort in-memory to avoid Firestore composite index requirement
+  return orders.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
 
 export async function getAllOrders(): Promise<Order[]> {

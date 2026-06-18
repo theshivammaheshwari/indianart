@@ -19,22 +19,30 @@ import type { Address, Review, CartItem } from '@/types';
 // ---- Addresses ----
 
 export async function getAddresses(userId: string): Promise<Address[]> {
-  const q = query(collection(db, 'addresses'), where('user_id', '==', userId), orderBy('created_at', 'desc'));
+  const q = query(collection(db, 'addresses'), where('user_id', '==', userId));
   const snap = await getDocs(q);
-  return snap.docs.map((d) => {
+  const items = snap.docs.map((d) => {
     const data = d.data();
     return {
-      id: d.id,
-      userId: data.user_id,
-      name: data.name,
-      phone: data.phone,
-      address: data.address,
-      city: data.city,
-      state: data.state,
-      pincode: data.pincode,
-      isDefault: data.is_default,
+      address: {
+        id: d.id,
+        userId: data.user_id,
+        name: data.name,
+        phone: data.phone,
+        address: data.address,
+        city: data.city,
+        state: data.state,
+        pincode: data.pincode,
+        isDefault: data.is_default,
+      },
+      createdAt: data.created_at || '',
     };
   });
+
+  // Sort in-memory to avoid Firestore composite index requirement
+  items.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+
+  return items.map((item) => item.address);
 }
 
 export async function addAddress(
@@ -96,11 +104,10 @@ export async function setDefaultAddress(userId: string, addressId: string): Prom
 export async function getReviews(paintingId: number): Promise<Review[]> {
   const q = query(
     collection(db, 'reviews'),
-    where('painting_id', '==', paintingId),
-    orderBy('created_at', 'desc')
+    where('painting_id', '==', paintingId)
   );
   const snap = await getDocs(q);
-  return snap.docs.map((d) => {
+  const reviews = snap.docs.map((d) => {
     const data = d.data();
     return {
       id: d.id,
@@ -109,10 +116,13 @@ export async function getReviews(paintingId: number): Promise<Review[]> {
       rating: data.rating,
       comment: data.comment,
       user: data.user || undefined,
-      createdAt: data.created_at,
+      createdAt: data.created_at || '',
       updatedAt: data.updated_at,
     };
   });
+
+  // Sort in-memory to avoid Firestore composite index requirement
+  return reviews.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
 
 export async function addReview(

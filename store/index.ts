@@ -8,6 +8,7 @@ interface CartState {
   removeItem: (paintingId: number) => void;
   updateQuantity: (paintingId: number, quantity: number) => void;
   clearCart: () => void;
+  setItems: (items: CartItem[]) => void;
   getTotal: () => number;
   getItemCount: () => number;
 }
@@ -50,6 +51,7 @@ export const useCartStore = create<CartState>()(
         });
       },
       clearCart: () => set({ items: [] }),
+      setItems: (items) => set({ items }),
       getTotal: () => get().items.reduce((total, item) => total + item.painting.price * item.quantity, 0),
       getItemCount: () => get().items.reduce((count, item) => count + item.quantity, 0),
     }),
@@ -66,6 +68,8 @@ interface WishlistState {
   removeItem: (paintingId: number) => void;
   isInWishlist: (paintingId: number) => boolean;
   toggleItem: (paintingId: number) => void;
+  setItems: (items: number[]) => void;
+  clearWishlist: () => void;
 }
 
 export const useWishlistStore = create<WishlistState>()(
@@ -88,6 +92,8 @@ export const useWishlistStore = create<WishlistState>()(
           get().addItem(paintingId);
         }
       },
+      setItems: (items) => set({ items }),
+      clearWishlist: () => set({ items: [] }),
     }),
     {
       name: 'maheshwari-wishlist',

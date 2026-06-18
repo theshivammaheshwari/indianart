@@ -32,30 +32,30 @@
   }
 
   .dark {
-    --background: 0 5% 95%;
-    --foreground: 20 10% 10%;
-    --card: 0 5% 92%;
-    --card-foreground: 20 10% 10%;
-    --popover: 0 0% 98%;
-    --popover-foreground: 20 10% 10%;
-    --primary: 38 85% 50%;
-    --primary-foreground: 0 0% 10%;
-    --secondary: 340 70% 45%;
+    --background: 20 14% 6%;
+    --foreground: 45 30% 90%;
+    --card: 20 12% 10%;
+    --card-foreground: 45 30% 90%;
+    --popover: 20 12% 8%;
+    --popover-foreground: 45 30% 90%;
+    --primary: 38 85% 55%;
+    --primary-foreground: 20 14% 6%;
+    --secondary: 340 70% 50%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 0 5% 88%;
-    --muted-foreground: 20 5% 50%;
-    --accent: 25 80% 50%;
+    --muted: 20 10% 16%;
+    --muted-foreground: 45 15% 58%;
+    --accent: 25 80% 52%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 62% 45%;
+    --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 5% 85%;
-    --input: 0 5% 85%;
-    --ring: 38 85% 50%;
-    --chart-1: 38 85% 50%;
-    --chart-2: 340 70% 50%;
-    --chart-3: 25 80% 50%;
-    --chart-4: 0 60% 45%;
-    --chart-5: 45 60% 45%;
+    --border: 20 10% 18%;
+    --input: 20 10% 18%;
+    --ring: 38 85% 55%;
+    --chart-1: 38 85% 55%;
+    --chart-2: 340 70% 55%;
+    --chart-3: 25 80% 55%;
+    --chart-4: 0 60% 50%;
+    --chart-5: 45 60% 50%;
   }
 }
 
@@ -80,11 +80,11 @@
 
 @layer components {
   .glass {
-    @apply bg-white/80 backdrop-blur-xl border border-white/40;
+    @apply bg-white/80 dark:bg-white/5 backdrop-blur-xl border border-white/40 dark:border-white/10;
   }
 
   .glass-card {
-    @apply bg-white/60 backdrop-blur-lg border border-white/30 rounded-2xl;
+    @apply bg-white/60 dark:bg-white/5 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl;
   }
 
   .gold-text {

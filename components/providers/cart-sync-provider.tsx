@@ -2,18 +2,31 @@
 
 import { useEffect, useRef } from 'react';
 import { useCartStore, useWishlistStore, useAuthStore } from '@/store';
-import { saveUserCart, saveUserWishlist } from '@/lib/api/database';
+import type { CartItem } from '@/types';
 
-// Debounce helper
-function useDebounce<T>(value: T, delay: number): T {
-  const ref = useRef(value);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+function cartKey(uid: string) { return `indianart-cart-${uid}`; }
+function wishlistKey(uid: string) { return `indianart-wishlist-${uid}`; }
 
-  if (JSON.stringify(value) !== JSON.stringify(ref.current)) {
-    ref.current = value;
-  }
+export function loadCartFromStorage(uid: string): CartItem[] {
+  try {
+    const raw = localStorage.getItem(cartKey(uid));
+    return raw ? (JSON.parse(raw) as CartItem[]) : [];
+  } catch { return []; }
+}
 
-  return ref.current;
+export function loadWishlistFromStorage(uid: string): number[] {
+  try {
+    const raw = localStorage.getItem(wishlistKey(uid));
+    return raw ? (JSON.parse(raw) as number[]) : [];
+  } catch { return []; }
+}
+
+function saveCartToStorage(uid: string, items: CartItem[]) {
+  try { localStorage.setItem(cartKey(uid), JSON.stringify(items)); } catch { /* ignore */ }
+}
+
+function saveWishlistToStorage(uid: string, items: number[]) {
+  try { localStorage.setItem(wishlistKey(uid), JSON.stringify(items)); } catch { /* ignore */ }
 }
 
 export function CartSyncProvider({ children }: { children: React.ReactNode }) {
@@ -24,32 +37,24 @@ export function CartSyncProvider({ children }: { children: React.ReactNode }) {
   const cartTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const wishlistTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Save cart to Firebase 2s after last change
+  // Debounce-save cart to localStorage on every change
   useEffect(() => {
     if (!isAuthenticated || !user) return;
-
     if (cartTimer.current) clearTimeout(cartTimer.current);
     cartTimer.current = setTimeout(() => {
-      saveUserCart(user.id, cartItems);
-    }, 2000);
-
-    return () => {
-      if (cartTimer.current) clearTimeout(cartTimer.current);
-    };
+      saveCartToStorage(user.id, cartItems);
+    }, 500);
+    return () => { if (cartTimer.current) clearTimeout(cartTimer.current); };
   }, [cartItems, isAuthenticated, user]);
 
-  // Save wishlist to Firebase 2s after last change
+  // Debounce-save wishlist to localStorage on every change
   useEffect(() => {
     if (!isAuthenticated || !user) return;
-
     if (wishlistTimer.current) clearTimeout(wishlistTimer.current);
     wishlistTimer.current = setTimeout(() => {
-      saveUserWishlist(user.id, wishlistItems);
-    }, 2000);
-
-    return () => {
-      if (wishlistTimer.current) clearTimeout(wishlistTimer.current);
-    };
+      saveWishlistToStorage(user.id, wishlistItems);
+    }, 500);
+    return () => { if (wishlistTimer.current) clearTimeout(wishlistTimer.current); };
   }, [wishlistItems, isAuthenticated, user]);
 
   return <>{children}</>;

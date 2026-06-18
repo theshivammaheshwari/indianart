@@ -13,54 +13,46 @@ interface CartState {
   getItemCount: () => number;
 }
 
-export const useCartStore = create<CartState>()(
-  persist(
-    (set, get) => ({
-      items: [],
-      addItem: (painting, quantity = 1) => {
-        const items = get().items;
-        const existingItem = items.find((item) => item.painting.id === painting.id);
+export const useCartStore = create<CartState>()((set, get) => ({
+  items: [],
+  addItem: (painting, quantity = 1) => {
+    const items = get().items;
+    const existingItem = items.find((item) => item.painting.id === painting.id);
 
-        if (existingItem) {
-          if (existingItem.quantity >= painting.stock) return;
-          set({
-            items: items.map((item) =>
-              item.painting.id === painting.id
-                ? { ...item, quantity: Math.min(item.quantity + quantity, painting.stock) }
-                : item
-            ),
-          });
-        } else {
-          set({ items: [...items, { painting, quantity }] });
-        }
-      },
-      removeItem: (paintingId) => {
-        set({ items: get().items.filter((item) => item.painting.id !== paintingId) });
-      },
-      updateQuantity: (paintingId, quantity) => {
-        if (quantity <= 0) {
-          get().removeItem(paintingId);
-          return;
-        }
-        set({
-          items: get().items.map((item) =>
-            item.painting.id === paintingId
-              ? { ...item, quantity: Math.min(quantity, item.painting.stock) }
-              : item
-          ),
-        });
-      },
-      clearCart: () => set({ items: [] }),
-      setItems: (items) => set({ items }),
-      getTotal: () => get().items.reduce((total, item) => total + item.painting.price * item.quantity, 0),
-      getItemCount: () => get().items.reduce((count, item) => count + item.quantity, 0),
-    }),
-    {
-      name: 'maheshwari-cart',
-      storage: createJSONStorage(() => localStorage),
+    if (existingItem) {
+      if (existingItem.quantity >= painting.stock) return;
+      set({
+        items: items.map((item) =>
+          item.painting.id === painting.id
+            ? { ...item, quantity: Math.min(item.quantity + quantity, painting.stock) }
+            : item
+        ),
+      });
+    } else {
+      set({ items: [...items, { painting, quantity }] });
     }
-  )
-);
+  },
+  removeItem: (paintingId) => {
+    set({ items: get().items.filter((item) => item.painting.id !== paintingId) });
+  },
+  updateQuantity: (paintingId, quantity) => {
+    if (quantity <= 0) {
+      get().removeItem(paintingId);
+      return;
+    }
+    set({
+      items: get().items.map((item) =>
+        item.painting.id === paintingId
+          ? { ...item, quantity: Math.min(quantity, item.painting.stock) }
+          : item
+      ),
+    });
+  },
+  clearCart: () => set({ items: [] }),
+  setItems: (items) => set({ items }),
+  getTotal: () => get().items.reduce((total, item) => total + item.painting.price * item.quantity, 0),
+  getItemCount: () => get().items.reduce((count, item) => count + item.quantity, 0),
+}));
 
 interface WishlistState {
   items: number[];
@@ -72,35 +64,27 @@ interface WishlistState {
   clearWishlist: () => void;
 }
 
-export const useWishlistStore = create<WishlistState>()(
-  persist(
-    (set, get) => ({
-      items: [],
-      addItem: (paintingId) => {
-        if (!get().items.includes(paintingId)) {
-          set({ items: [...get().items, paintingId] });
-        }
-      },
-      removeItem: (paintingId) => {
-        set({ items: get().items.filter((id) => id !== paintingId) });
-      },
-      isInWishlist: (paintingId) => get().items.includes(paintingId),
-      toggleItem: (paintingId) => {
-        if (get().isInWishlist(paintingId)) {
-          get().removeItem(paintingId);
-        } else {
-          get().addItem(paintingId);
-        }
-      },
-      setItems: (items) => set({ items }),
-      clearWishlist: () => set({ items: [] }),
-    }),
-    {
-      name: 'maheshwari-wishlist',
-      storage: createJSONStorage(() => localStorage),
+export const useWishlistStore = create<WishlistState>()((set, get) => ({
+  items: [],
+  addItem: (paintingId) => {
+    if (!get().items.includes(paintingId)) {
+      set({ items: [...get().items, paintingId] });
     }
-  )
-);
+  },
+  removeItem: (paintingId) => {
+    set({ items: get().items.filter((id) => id !== paintingId) });
+  },
+  isInWishlist: (paintingId) => get().items.includes(paintingId),
+  toggleItem: (paintingId) => {
+    if (get().isInWishlist(paintingId)) {
+      get().removeItem(paintingId);
+    } else {
+      get().addItem(paintingId);
+    }
+  },
+  setItems: (items) => set({ items }),
+  clearWishlist: () => set({ items: [] }),
+}));
 
 interface LocaleState {
   locale: Locale;

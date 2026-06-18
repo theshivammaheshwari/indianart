@@ -128,8 +128,14 @@ export async function getOrdersByUser(userId: string): Promise<Order[]> {
   );
   const snapshot = await getDocs(q);
   const orders = snapshot.docs.map((d) => mapOrderDoc(d.id, d.data()));
+  
+  // Only show orders where payment was completed ('paid', 'refunded') or failed ('failed')
+  const completedOrFailedOrders = orders.filter(
+    (o) => o.paymentStatus === 'paid' || o.paymentStatus === 'failed' || o.paymentStatus === 'refunded'
+  );
+
   // Sort in-memory to avoid Firestore composite index requirement
-  return orders.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  return completedOrFailedOrders.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
 
 export async function getAllOrders(): Promise<Order[]> {

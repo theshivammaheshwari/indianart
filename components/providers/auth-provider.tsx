@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { onAuthChange } from '@/lib/api/auth';
 import { useAuthStore, useCartStore, useWishlistStore } from '@/store';
-import { loadCartFromStorage, loadWishlistFromStorage } from '@/components/providers/cart-sync-provider';
+import { loadUserCart, loadUserWishlist } from '@/lib/api/database';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { setUser, logout } = useAuthStore();
@@ -11,7 +11,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { setItems: setWishlistItems, clearWishlist } = useWishlistStore();
 
   useEffect(() => {
-    const unsubscribe = onAuthChange((user) => {
+    const unsubscribe = onAuthChange(async (user) => {
       if (user) {
         setUser({
           id: user.id,
@@ -21,15 +21,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           role: user.role || 'customer',
         });
 
-        // Restore cart + wishlist from user-specific localStorage key
-        const savedCart = loadCartFromStorage(user.id);
-        const savedWishlist = loadWishlistFromStorage(user.id);
+        // Restore cart + wishlist from Firebase
+        const [savedCart, savedWishlist] = await Promise.all([
+          loadUserCart(user.id),
+          loadUserWishlist(user.id),
+        ]);
 
-        if (savedCart.length > 0) setCartItems(savedCart);
-        if (savedWishlist.length > 0) setWishlistItems(savedWishlist);
+        setCartItems(savedCart);
+        setWishlistItems(savedWishlist);
       } else {
-        // On logout: clear in-memory state only.
-        // Data stays safe in localStorage under the user's specific key.
+        // On logout: clear in-memory state — data stays in Firebase
         logout();
         clearCart();
         clearWishlist();

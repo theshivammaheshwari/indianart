@@ -2,32 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { useCartStore, useWishlistStore, useAuthStore } from '@/store';
-import type { CartItem } from '@/types';
-
-function cartKey(uid: string) { return `indianart-cart-${uid}`; }
-function wishlistKey(uid: string) { return `indianart-wishlist-${uid}`; }
-
-export function loadCartFromStorage(uid: string): CartItem[] {
-  try {
-    const raw = localStorage.getItem(cartKey(uid));
-    return raw ? (JSON.parse(raw) as CartItem[]) : [];
-  } catch { return []; }
-}
-
-export function loadWishlistFromStorage(uid: string): number[] {
-  try {
-    const raw = localStorage.getItem(wishlistKey(uid));
-    return raw ? (JSON.parse(raw) as number[]) : [];
-  } catch { return []; }
-}
-
-function saveCartToStorage(uid: string, items: CartItem[]) {
-  try { localStorage.setItem(cartKey(uid), JSON.stringify(items)); } catch { /* ignore */ }
-}
-
-function saveWishlistToStorage(uid: string, items: number[]) {
-  try { localStorage.setItem(wishlistKey(uid), JSON.stringify(items)); } catch { /* ignore */ }
-}
+import { saveUserCart, saveUserWishlist } from '@/lib/api/database';
 
 export function CartSyncProvider({ children }: { children: React.ReactNode }) {
   const { items: cartItems } = useCartStore();
@@ -36,26 +11,41 @@ export function CartSyncProvider({ children }: { children: React.ReactNode }) {
 
   const cartTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const wishlistTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Track whether the initial Firebase restore has been completed
+  const readyRef = useRef(false);
 
-  // Debounce-save cart to localStorage on every change
+  // Mark ready only after user is authenticated and data has been loaded
+  // AuthProvider calls setItems before this runs, so this fires after restore
   useEffect(() => {
-    if (!isAuthenticated || !user) return;
+    if (isAuthenticated && user) {
+      // Small delay to let AuthProvider finish setItems first
+      const t = setTimeout(() => { readyRef.current = true; }, 1500);
+      return () => clearTimeout(t);
+    } else {
+      readyRef.current = false;
+    }
+  }, [isAuthenticated, user]);
+
+  // Save cart to Firebase (debounced, only after initial restore)
+  useEffect(() => {
+    if (!isAuthenticated || !user || !readyRef.current) return;
     if (cartTimer.current) clearTimeout(cartTimer.current);
     cartTimer.current = setTimeout(() => {
-      saveCartToStorage(user.id, cartItems);
-    }, 500);
+      saveUserCart(user.id, cartItems).catch(console.error);
+    }, 1000);
     return () => { if (cartTimer.current) clearTimeout(cartTimer.current); };
   }, [cartItems, isAuthenticated, user]);
 
-  // Debounce-save wishlist to localStorage on every change
+  // Save wishlist to Firebase (debounced, only after initial restore)
   useEffect(() => {
-    if (!isAuthenticated || !user) return;
+    if (!isAuthenticated || !user || !readyRef.current) return;
     if (wishlistTimer.current) clearTimeout(wishlistTimer.current);
     wishlistTimer.current = setTimeout(() => {
-      saveWishlistToStorage(user.id, wishlistItems);
-    }, 500);
+      saveUserWishlist(user.id, wishlistItems).catch(console.error);
+    }, 1000);
     return () => { if (wishlistTimer.current) clearTimeout(wishlistTimer.current); };
   }, [wishlistItems, isAuthenticated, user]);
 
   return <>{children}</>;
 }
+

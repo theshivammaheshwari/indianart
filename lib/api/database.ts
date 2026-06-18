@@ -164,51 +164,36 @@ export async function updatePassword(newPassword: string): Promise<void> {
 // ---- Cart & Wishlist Sync (per user) ----
 
 export async function saveUserCart(userId: string, items: CartItem[]): Promise<void> {
-  try {
-    await setDoc(doc(db, 'user_carts', userId), {
-      items: items.map((item) => ({
-        painting_id: item.painting.id,
-        quantity: item.quantity,
-        painting: item.painting,
-      })),
-      updated_at: new Date().toISOString(),
-    });
-  } catch {
-    // fail silently — localStorage is the fallback
-  }
+  await setDoc(doc(db, 'user_carts', userId), {
+    items: items.map((item) => ({
+      painting_id: item.painting.id,
+      quantity: item.quantity,
+      painting: item.painting,
+    })),
+    updated_at: new Date().toISOString(),
+  });
 }
 
 export async function loadUserCart(userId: string): Promise<CartItem[]> {
-  try {
-    const snap = await getDoc(doc(db, 'user_carts', userId));
-    if (!snap.exists()) return [];
-    const data = snap.data();
-    return (data.items || []).map((item: any) => ({
-      painting: item.painting,
-      quantity: item.quantity,
-    })) as CartItem[];
-  } catch {
-    return [];
-  }
+  const snap = await getDoc(doc(db, 'user_carts', userId));
+  if (!snap.exists()) return [];
+  const data = snap.data();
+  return (data.items || []).map((item: any) => ({
+    painting: item.painting,
+    quantity: item.quantity,
+  })) as CartItem[];
 }
 
 export async function saveUserWishlist(userId: string, items: number[]): Promise<void> {
-  try {
-    await setDoc(doc(db, 'user_wishlists', userId), {
-      items,
-      updated_at: new Date().toISOString(),
-    });
-  } catch {
-    // fail silently
-  }
+  await setDoc(doc(db, 'user_wishlists', userId), {
+    items,
+    updated_at: new Date().toISOString(),
+  });
 }
 
 export async function loadUserWishlist(userId: string): Promise<number[]> {
-  try {
-    const snap = await getDoc(doc(db, 'user_wishlists', userId));
-    if (!snap.exists()) return [];
-    return snap.data().items || [];
-  } catch {
-    return [];
-  }
+  const snap = await getDoc(doc(db, 'user_wishlists', userId));
+  if (!snap.exists()) return [];
+  return snap.data().items || [];
 }
+

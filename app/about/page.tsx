@@ -447,6 +447,8 @@ export default function AboutPage() {
               </Button>
             </div>
           </motion.div>
+        </div>
+      </section>
     </div>
   );
 }

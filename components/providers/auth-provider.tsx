@@ -2,13 +2,20 @@
 
 import { useEffect } from 'react';
 import { onAuthChange } from '@/lib/api/auth';
-import { useAuthStore, useCartStore, useWishlistStore } from '@/store';
+import { useAuthStore, useCartStore, useWishlistStore, rehydrateStores } from '@/store';
 import { loadUserCart, loadUserWishlist } from '@/lib/api/database';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { setUser, logout } = useAuthStore();
   const { setItems: setCartItems, clearCart } = useCartStore();
   const { setItems: setWishlistItems, clearWishlist } = useWishlistStore();
+
+  // Rehydrate all persisted Zustand stores from localStorage on first client mount.
+  // Since stores use skipHydration: true, this prevents SSR/hydration mismatches
+  // that caused "Application error: a client-side exception" on back navigation.
+  useEffect(() => {
+    rehydrateStores();
+  }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthChange(async (user) => {

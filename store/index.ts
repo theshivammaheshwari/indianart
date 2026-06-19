@@ -2,6 +2,8 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { CartItem, Painting, Locale, WishlistItem } from '@/types';
 
+// ─── Cart ────────────────────────────────────────────────────────────────────
+
 interface CartState {
   items: CartItem[];
   addItem: (painting: Painting, quantity?: number) => void;
@@ -54,6 +56,8 @@ export const useCartStore = create<CartState>()((set, get) => ({
   getItemCount: () => get().items.reduce((count, item) => count + item.quantity, 0),
 }));
 
+// ─── Wishlist ─────────────────────────────────────────────────────────────────
+
 interface WishlistState {
   items: number[];
   addItem: (paintingId: number) => void;
@@ -86,6 +90,8 @@ export const useWishlistStore = create<WishlistState>()((set, get) => ({
   clearWishlist: () => set({ items: [] }),
 }));
 
+// ─── Locale ───────────────────────────────────────────────────────────────────
+
 interface LocaleState {
   locale: Locale;
   setLocale: (locale: Locale) => void;
@@ -102,9 +108,14 @@ export const useLocaleStore = create<LocaleState>()(
     {
       name: 'maheshwari-locale',
       storage: createJSONStorage(() => localStorage),
+      // skipHydration prevents localStorage access during SSR/hydration,
+      // avoiding "Application error: a client-side exception" on back navigation.
+      skipHydration: true,
     }
   )
 );
+
+// ─── Theme ────────────────────────────────────────────────────────────────────
 
 interface ThemeState {
   isDark: boolean;
@@ -120,9 +131,12 @@ export const useThemeStore = create<ThemeState>()(
     {
       name: 'maheshwari-theme',
       storage: createJSONStorage(() => localStorage),
+      skipHydration: true,
     }
   )
 );
+
+// ─── Search ───────────────────────────────────────────────────────────────────
 
 interface SearchState {
   isOpen: boolean;
@@ -137,6 +151,8 @@ export const useSearchStore = create<SearchState>((set) => ({
   setOpen: (open) => set({ isOpen: open }),
   setQuery: (query) => set({ query }),
 }));
+
+// ─── Auth ─────────────────────────────────────────────────────────────────────
 
 interface AuthState {
   user: null | { id: string; email: string; fullName?: string; phone?: string; role: string };
@@ -161,9 +177,12 @@ export const useAuthStore = create<AuthState>()(
       name: 'indianart-auth',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({ user: state.user, isAuthenticated: state.isAuthenticated }),
+      skipHydration: true,
     }
   )
 );
+
+// ─── UI ───────────────────────────────────────────────────────────────────────
 
 interface UIState {
   isMobileMenuOpen: boolean;
@@ -199,6 +218,22 @@ export const useUIStore = create<UIState>()(
     {
       name: 'maheshwari-ui',
       storage: createJSONStorage(() => localStorage),
+      skipHydration: true,
     }
   )
 );
+
+// ─── Rehydration ──────────────────────────────────────────────────────────────
+
+/**
+ * Call this once on the client side (inside a useEffect) to rehydrate all
+ * persisted Zustand stores from localStorage. Since all stores use
+ * skipHydration: true, this is required for persistence to work correctly
+ * while preventing SSR hydration mismatches.
+ */
+export function rehydrateStores() {
+  useLocaleStore.persist.rehydrate();
+  useThemeStore.persist.rehydrate();
+  useAuthStore.persist.rehydrate();
+  useUIStore.persist.rehydrate();
+}

@@ -1,33 +1,35 @@
-﻿[
+[
     {
-        "id":  1,
-        "slug":  "mughaleazam-immortal-love-story",
-        "title_en":  "Mughal-e-Azam — Immortal Love Story",
-        "title_hi":  "मुग़ल-ए-आज़म — अमर प्रेम कहानी",
-        "description_en":  "A breathtaking hand-painted recreation of the iconic Mughal-e-Azam cinema poster. This original framed artwork captures the grandeur of K. Asif\u0027s 1960 masterpiece with exquisite brushwork and vivid colours, bringing Dilip Kumar and Madhubala\u0027s immortal romance to life.",
-        "description_hi":  "K. Asif की 1960 की कालजयी फिल्म मुग़ल-ए-आज़म के प्रतिष्ठित पोस्टर की एक अद्भुत हाथ से बनाई गई पुनर्रचना। यह मूल फ्रेमयुक्त कलाकृति दिलीप कुमार और मधुबाला के अमर रोमांस को जीवंत करती है।",
-        "category":  "Hand-Painted Poster",
-        "category_hi":  "हाथ से बनी पेंटिंग",
-        "price":  1000,
-        "originalPrice":  1200,
-        "stock":  1,
-        "size":  "Standard Frame",
-        "medium":  "Oil on Board",
-        "artist":  "Maheshwari Art Studio",
-        "weight":  "600g",
-        "tags":  [
-                     "mughal-e-azam",
-                     "bollywood",
-                     "classic",
-                     "romance",
-                     "vintage"
-                 ],
-        "featured":  true,
-        "trending":  true,
-        "images":  [
-                       "/paintings/20220216_235701.jpg"
-                   ],
-        "createdAt":  "2024-01-01"
+        "id": 1,
+        "slug": "dhool-ka-phool-1959-vintage-bollywood-poster",
+        "title_en": "Original Hand-Painted Vintage Bollywood Poster — Dhool Ka Phool (1959)",
+        "title_hi": "मूल हाथ से चित्रित विंटेज बॉलीवुड पोस्टर — धूल का फूल (1959)",
+        "description_en": "An extraordinary, museum-grade vintage collector's item. This original hand-painted cinema poster of Yash Chopra's 1959 directorial debut classic Dhool Ka Phool features stunning black and white ink/charcoal style portraits of Rajendra Kumar, Mala Sinha, and Nanda. Painted on authentic aged paper, this extremely rare historical Bollywood memorabilia represents the birth of one of Indian cinema's greatest legacies.",
+        "description_hi": "यश चोपड़ा के निर्देशन में बनी पहली फिल्म धूल का फूल (1959) का एक अत्यंत दुर्लभ मूल हाथ से चित्रित विंटेज सिनेमा पोस्टर। स्याही और चारकोल शैली में बने इस ब्लैक-एंड-व्हाइट उत्कृष्ट कलाकृति में राजेंद्र कुमार, माला सिन्हा और नंदा को दर्शाया गया है।",
+        "category": "Hand-Painted Poster",
+        "category_hi": "हाथ से बनी पेंटिंग",
+        "price": 400000,
+        "originalPrice": 500000,
+        "stock": 1,
+        "size": "Standard Frame",
+        "medium": "Ink & Charcoal on Aged Paper",
+        "artist": "Brij Mohan Gupta",
+        "weight": "600g",
+        "tags": [
+            "dhool-ka-phool",
+            "yash-chopra",
+            "bollywood",
+            "classic",
+            "vintage",
+            "rare",
+            "charcoal"
+        ],
+        "featured": true,
+        "trending": true,
+        "images": [
+            "/paintings/20220216_235701.jpg"
+        ],
+        "createdAt": "2026-06-19"
     },
     {
         "id":  2,

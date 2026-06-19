@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Filter, Grid3X3, LayoutGrid, X, SlidersHorizontal } from 'lucide-react';
@@ -30,7 +30,7 @@ import { useLocaleStore } from '@/store';
 import type { Painting } from '@/types';
 import { cn } from '@/lib/utils';
 
-export default function GalleryPage() {
+function GalleryContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { t } = useLocaleStore();
@@ -402,5 +402,17 @@ export default function GalleryPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function GalleryPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen pt-20 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gold-500"></div>
+      </div>
+    }>
+      <GalleryContent />
+    </Suspense>
   );
 }

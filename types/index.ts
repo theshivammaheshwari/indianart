@@ -135,7 +135,7 @@ export interface SiteSettings {
 }
 
 export const defaultSettings: SiteSettings = {
-  siteName: 'Devdas Arts',
+  siteName: 'The Indian Canvas',
   tagline_en: 'Where Bollywood Meets the Soul of India',
   tagline_hi: 'जहां बॉलीवुड भारत की आत्मा से मिलता है',
   phone: '+91 9828088109',

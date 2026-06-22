@@ -27,22 +27,22 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'Devdas Arts | Where Bollywood Meets the Soul of India',
+  title: 'The Indian Canvas | Where Bollywood Meets the Soul of India',
   description: 'Discover exquisite handmade Indian paintings inspired by Bollywood cinema. Traditional Rajasthani art, spiritual masterpieces, and contemporary Indian paintings.',
   keywords: 'Indian paintings, Bollywood art, Rajasthani art, canvas paintings, handmade paintings, Indian art gallery, traditional art, spiritual paintings, movie posters',
-  authors: [{ name: 'Devdas Arts' }],
-  creator: 'Devdas Arts',
+  authors: [{ name: 'The Indian Canvas' }],
+  creator: 'The Indian Canvas',
   openGraph: {
-    title: 'Devdas Arts',
+    title: 'The Indian Canvas',
     description: 'Where Bollywood Meets the Soul of India',
     url: 'https://indianart-one.vercel.app',
-    siteName: 'Devdas Arts',
+    siteName: 'The Indian Canvas',
     locale: 'en_IN',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Devdas Arts',
+    title: 'The Indian Canvas',
     description: 'Where Bollywood Meets the Soul of India',
   },
   robots: {

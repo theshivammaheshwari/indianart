@@ -41,10 +41,10 @@ export function Footer() {
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <div className="relative w-12 h-12 rounded-full overflow-hidden shadow-md flex-shrink-0">
-                  <Image src="/logo.png" alt="Devdas Arts Logo" fill className="object-cover" sizes="48px" />
+                  <Image src="/logo.png" alt="The Indian Canvas Logo" fill className="object-cover" sizes="48px" />
                 </div>
                 <h3 className="font-display text-2xl font-bold gold-text">
-                  Devdas Arts
+                  The Indian Canvas
                 </h3>
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed">
@@ -182,7 +182,7 @@ export function Footer() {
 
         <div className="py-6 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground text-center md:text-left">
-            {t('© 2026 Devdas Arts. All rights reserved.', '© 2026 देवदास आर्ट्स। सर्वाधिकार सुरक्षित।')}
+            {t('© 2026 The Indian Canvas. All rights reserved.', '© 2026 द इंडियन कैनवस। सर्वाधिकार सुरक्षित।')}
           </p>
 
           <p className="text-sm text-muted-foreground flex items-center gap-1">

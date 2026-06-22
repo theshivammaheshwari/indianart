@@ -34,10 +34,12 @@ try {
       "IMG-20210903-WA0050.jpg": 300000,    // 3 Lakh
       "IMG_20160813_221330.jpg": 120000000, // 12 Crore
       // IMG_20180626_10xxxx.jpg → Sold only, no price change
-      // IMG_20180626_110157/110242/110659.jpg → no instruction, skip
+      "IMG_20180626_110157.jpg": 200000,    // 2 Lakh
+      "IMG_20180626_110242.jpg": 200000,    // 2 Lakh
+      "IMG_20180626_110659.jpg": 200000,    // 2 Lakh
       "IMG_20180819_202057.jpg": 600000,    // 6 Lakh
       "IMG_20180908_102623.jpg": 600000,    // 6 Lakh
-      // IMG_20250306_093101_084.jpg → no instruction, skip
+      "IMG_20250306_093101_084.jpg": 300000, // 3 Lakh
     };
 
     // Items to mark as Sold Out (stock = 0)

@@ -55,7 +55,7 @@ try {
       "IMG_20180626_110009.jpg",
     ]);
 
-    // All handbill scans → price = 30000 and stock = 0 (Sold Out)
+    // All handbill scans → price = 100000 (1 Lakh) and stock = 0 (Sold Out)
     const handbills = new Set([
       "indiancinemahandbillscan01.jpg","indiancinemahandbillscan02.jpg","indiancinemahandbillscan03.jpg",
       "indiancinemahandbillscan04.jpg","indiancinemahandbillscan05.jpg","indiancinemahandbillscan06.jpg",
@@ -142,9 +142,9 @@ try {
           item.price = priceUpdates[filename];
           item.originalPrice = Math.round(priceUpdates[filename] * 1.25);
           changed = true;
-        } else if (handbills.has(filename) && item.price !== 30000) {
-          item.price = 30000;
-          item.originalPrice = 37500;
+        } else if (handbills.has(filename) && item.price !== 100000) {
+          item.price = 100000;
+          item.originalPrice = 125000;
           changed = true;
         }
 

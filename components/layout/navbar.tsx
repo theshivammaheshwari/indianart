@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Menu, X, ShoppingBag, Heart, Search, User, Globe
@@ -52,11 +53,18 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           <Link href="/" className="flex items-center gap-3 group">
             <motion.div
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.5 }}
-              className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-md shrink-0"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+              className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 shadow-md"
             >
-              <span className="font-display font-bold text-white text-lg select-none">I</span>
+              <Image
+                src="/logo.png"
+                alt="Devdas Arts Logo"
+                fill
+                className="object-cover"
+                sizes="40px"
+                priority
+              />
             </motion.div>
             <div className="hidden sm:block">
               <h1 className="font-display text-lg lg:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-600 via-orange-500 to-amber-600">

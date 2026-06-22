@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useLocaleStore } from '@/store';
 import { defaultSettings } from '@/types';
+import Image from 'next/image';
 
 const footerLinks = {
   shop: [
@@ -38,9 +39,14 @@ export function Footer() {
         <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div className="space-y-6">
             <div>
-              <h3 className="font-display text-2xl font-bold gold-text mb-2">
-                Devdas Arts
-              </h3>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="relative w-12 h-12 rounded-full overflow-hidden shadow-md flex-shrink-0">
+                  <Image src="/logo.png" alt="Devdas Arts Logo" fill className="object-cover" sizes="48px" />
+                </div>
+                <h3 className="font-display text-2xl font-bold gold-text">
+                  Devdas Arts
+                </h3>
+              </div>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 {t(
                   'Where Bollywood Meets the Soul of India',

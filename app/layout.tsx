@@ -12,6 +12,7 @@ import { WhatsAppButton } from '@/components/ui/whatsapp-button';
 import { ParticleBackground } from '@/components/effects/particle-background';
 import { AuthProvider } from '@/components/providers/auth-provider';
 import { CartSyncProvider } from '@/components/providers/cart-sync-provider';
+import { GlobalErrorBoundary } from '@/components/providers/error-boundary';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -64,20 +65,22 @@ export default function RootLayout({
           forcedTheme="light"
           disableTransitionOnChange
         >
-          <AuthProvider>
-            <CartSyncProvider>
-              <ParticleBackground />
-              <div className="relative z-10 flex min-h-screen flex-col">
-                <Navbar />
-                <main className="flex-1">{children}</main>
-                <Footer />
-              </div>
-              <CartDrawer />
-              <WishlistDrawer />
-              <SearchModal />
-              <WhatsAppButton />
-            </CartSyncProvider>
-          </AuthProvider>
+          <GlobalErrorBoundary>
+            <AuthProvider>
+              <CartSyncProvider>
+                <ParticleBackground />
+                <div className="relative z-10 flex min-h-screen flex-col">
+                  <Navbar />
+                  <main className="flex-1">{children}</main>
+                  <Footer />
+                </div>
+                <CartDrawer />
+                <WishlistDrawer />
+                <SearchModal />
+                <WhatsAppButton />
+              </CartSyncProvider>
+            </AuthProvider>
+          </GlobalErrorBoundary>
           <Toaster position="bottom-right" richColors closeButton />
         </ThemeProvider>
       </body>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { User, Package, MapPin, LogOut, LayoutDashboard } from 'lucide-react';
@@ -24,11 +24,21 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const { user, isAuthenticated, logout } = useAuthStore();
   const { t } = useLocaleStore();
 
+  // Only check auth after client mounts so Zustand stores have rehydrated from
+  // localStorage. Without this, isAuthenticated is always false on first render
+  // (due to skipHydration), causing a redirect loop and crashing on back navigation.
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     if (!isAuthenticated && user === null) {
       router.push('/auth/login?redirect=' + encodeURIComponent(pathname));
     }
-  }, [isAuthenticated, user, router, pathname]);
+  }, [mounted, isAuthenticated, user, router, pathname]);
 
   const handleSignOut = async () => {
     try {
@@ -40,6 +50,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     }
   };
 
+  // Show nothing until we know the auth state (avoids flash of redirect)
+  if (!mounted) return null;
   if (!user) return null;
 
   return (

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -29,7 +29,8 @@ export default function PaintingDetailPage() {
   const { t } = useLocaleStore();
   const { addItem, items } = useCartStore();
   const { isInWishlist, toggleItem } = useWishlistStore();
-  const { addToRecentlyViewed } = useUIStore();
+  const { addToRecentlyViewed, setCartOpen } = useUIStore();
+  const router = useRouter();
 
   const [painting, setPainting] = useState<Painting | null>(null);
   const [relatedPaintings, setRelatedPaintings] = useState<Painting[]>([]);
@@ -61,6 +62,14 @@ export default function PaintingDetailPage() {
     if (!painting || isSold) return;
     addItem(painting, quantity);
     toast.success(t('Added to cart!', 'कार्ट में जोड़ा गया!'));
+  };
+
+  // Buy Now: add to cart + open cart drawer so user can proceed to checkout
+  const handleBuyNow = () => {
+    if (!painting || isSold) return;
+    addItem(painting, quantity);
+    setCartOpen(true);
+    toast.success(t('Added to cart! Review your order below.', 'कार्ट में जोड़ा गया!'));
   };
 
   const handleToggleWishlist = () => {
@@ -338,8 +347,12 @@ export default function PaintingDetailPage() {
             </div>
 
             {painting.stock > 0 && (
-              <Button asChild className="w-full" size="lg">
-                <Link href="/checkout">{t('Buy Now', 'अभी खरीदें')}</Link>
+              <Button
+                onClick={handleBuyNow}
+                className="w-full bg-amber-600 hover:bg-amber-700 text-white"
+                size="lg"
+              >
+                {t('Buy Now', 'अभी खरीदें')}
               </Button>
             )}
 

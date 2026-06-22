@@ -38,15 +38,16 @@ function GalleryContent() {
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'grid' | 'compact'>('grid');
 
+  const categories = useMemo(() => getUniqueCategories(), []);
+  const priceRange = useMemo(() => getPriceRange(), []);
+
   const category = searchParams.get('category') || 'all';
   const minPrice = parseInt(searchParams.get('minPrice') || '0');
-  const maxPrice = parseInt(searchParams.get('maxPrice') || '50000');
+  const maxPrice = parseInt(searchParams.get('maxPrice') || String(priceRange.max));
   const inStock = searchParams.get('inStock');
   const sort = searchParams.get('sort') || 'newest';
 
-  const categories = useMemo(() => getUniqueCategories(), []);
-  const priceRange = useMemo(() => getPriceRange(), []);
-  const [localPriceRange, setLocalPriceRange] = useState([minPrice, maxPrice]);
+  const [localPriceRange, setLocalPriceRange] = useState([minPrice, maxPrice || priceRange.max]);
 
   useEffect(() => {
     async function loadPaintings() {

@@ -230,7 +230,7 @@ function AboutArtist() {
             <div className="w-32 h-32 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 mx-auto mb-6 flex items-center justify-center">
               <span className="font-display text-4xl font-bold text-white">I</span>
             </div>
-            <h3 className="font-display text-2xl font-bold text-amber-600">Indian Movies Art</h3>
+            <h3 className="font-display text-2xl font-bold text-amber-600">Devdas Arts</h3>
             <p className="text-muted-foreground mt-2">Jaipur, Rajasthan</p>
           </div>
         </div>

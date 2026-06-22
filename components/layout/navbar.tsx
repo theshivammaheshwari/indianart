@@ -60,7 +60,7 @@ export function Navbar() {
             </motion.div>
             <div className="hidden sm:block">
               <h1 className="font-display text-lg lg:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-600 via-orange-500 to-amber-600">
-                Indian Movies Art
+                Devdas Arts
               </h1>
               <p className="text-xs text-muted-foreground leading-none">
                 {t('Art Gallery', 'आर्ट गैलरी')}

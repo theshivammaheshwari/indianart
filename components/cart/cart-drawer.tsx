@@ -10,6 +10,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { useCartStore, useUIStore, useLocaleStore } from '@/store';
 import { defaultSettings } from '@/types';
+import { formatINR, formatUSD } from '@/lib/utils';
 
 export function CartDrawer() {
   const { isCartOpen, setCartOpen } = useUIStore();
@@ -84,7 +85,8 @@ export function CartDrawer() {
                           {item.painting.size}
                         </p>
                         <p className="text-sm font-semibold text-gold-500 mt-1">
-                          ₹{item.painting.price.toLocaleString('en-IN')}
+                          {formatINR(item.painting.price)}
+                          <span className="text-xs font-normal text-muted-foreground ml-1">({formatUSD(item.painting.price)})</span>
                         </p>
 
                         <div className="flex items-center gap-2 mt-2">
@@ -129,7 +131,7 @@ export function CartDrawer() {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">{t('Subtotal', 'उप-योग')}</span>
-                  <span className="font-medium">₹{total.toLocaleString('en-IN')}</span>
+                  <span className="font-medium">{formatINR(total)} <span className="text-xs text-muted-foreground">({formatUSD(total)})</span></span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">{t('Shipping', 'शिपिंग')}</span>
@@ -152,7 +154,7 @@ export function CartDrawer() {
                 <Separator />
                 <div className="flex justify-between text-base font-bold">
                   <span>{t('Total', 'कुल')}</span>
-                  <span className="text-gold-500">₹{grandTotal.toLocaleString('en-IN')}</span>
+                  <span className="text-gold-500">{formatINR(grandTotal)} <span className="text-xs font-normal text-muted-foreground">({formatUSD(grandTotal)})</span></span>
                 </div>
               </div>
 

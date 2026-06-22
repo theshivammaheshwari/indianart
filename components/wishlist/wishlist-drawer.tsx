@@ -11,6 +11,7 @@ import { useWishlistStore, useCartStore, useUIStore, useLocaleStore } from '@/st
 import { getPaintingById } from '@/lib/api/paintings';
 import { useEffect, useState } from 'react';
 import type { Painting } from '@/types';
+import { formatINR, formatUSD } from '@/lib/utils';
 
 export function WishlistDrawer() {
   const { isWishlistOpen, setWishlistOpen } = useUIStore();
@@ -98,7 +99,8 @@ export function WishlistDrawer() {
                         {t(painting.title_en, painting.title_hi)}
                       </Link>
                       <p className="text-sm font-semibold text-gold-500 mt-1">
-                        ₹{painting.price.toLocaleString('en-IN')}
+                        {formatINR(painting.price)}
+                        <span className="text-xs font-normal text-muted-foreground ml-1">({formatUSD(painting.price)})</span>
                       </p>
 
                       <div className="flex gap-2 mt-3">

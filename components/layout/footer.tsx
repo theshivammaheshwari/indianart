@@ -39,7 +39,7 @@ export function Footer() {
           <div className="space-y-6">
             <div>
               <h3 className="font-display text-2xl font-bold gold-text mb-2">
-                Indian Movies Art Gallery
+                Devdas Arts
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 {t(
@@ -176,7 +176,7 @@ export function Footer() {
 
         <div className="py-6 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground text-center md:text-left">
-            {t('© 2026 Indian Movies Art Gallery. All rights reserved.', '© 2026 इंडियन मूवीज आर्ट गैलरी। सर्वाधिकार सुरक्षित।')}
+            {t('© 2026 Devdas Arts. All rights reserved.', '© 2026 देवदास आर्ट्स। सर्वाधिकार सुरक्षित।')}
           </p>
 
           <p className="text-sm text-muted-foreground flex items-center gap-1">

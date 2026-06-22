@@ -11,6 +11,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { searchPaintings } from '@/lib/api/paintings';
 import { useSearchStore, useLocaleStore } from '@/store';
 import type { Painting } from '@/types';
+import { formatINR, formatUSD } from '@/lib/utils';
 
 export function SearchModal() {
   const { isOpen, setOpen } = useSearchStore();
@@ -113,9 +114,10 @@ export function SearchModal() {
                       <p className="text-sm text-muted-foreground">
                         {painting.category} • {painting.size}
                       </p>
-                      <p className="text-sm font-semibold text-gold-500 mt-1">
-                        ₹{painting.price.toLocaleString('en-IN')}
-                      </p>
+                      <div>
+                        <span className="text-sm font-semibold text-gold-500">{formatINR(painting.price)}</span>
+                        <span className="text-xs text-muted-foreground ml-1">({formatUSD(painting.price)})</span>
+                      </div>
                     </div>
                     <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-gold-500 group-hover:translate-x-1 transition-all" />
                   </Link>

@@ -21,6 +21,7 @@ import type { Painting } from '@/types';
 import { PaintingCard } from '@/components/paintings/painting-card';
 import { defaultSettings } from '@/types';
 import { toast } from 'sonner';
+import { formatINR, formatUSD } from '@/lib/utils';
 
 export default function PaintingDetailPage() {
   const params = useParams();
@@ -233,15 +234,23 @@ export default function PaintingDetailPage() {
             </div>
 
             <div className="flex flex-wrap items-center gap-4">
-              <div className="flex items-baseline gap-3">
-                <span className="text-3xl font-bold text-gold-500">
-                  Rs.{painting.price.toLocaleString('en-IN')}
-                </span>
-                {painting.originalPrice && (
-                  <span className="text-xl text-muted-foreground line-through">
-                    Rs.{painting.originalPrice.toLocaleString('en-IN')}
+              <div className="flex flex-col gap-1">
+                <div className="flex items-baseline gap-3">
+                  <span className="text-3xl font-bold text-gold-500">
+                    {formatINR(painting.price)}
                   </span>
-                )}
+                  {painting.originalPrice && (
+                    <span className="text-xl text-muted-foreground line-through">
+                      {formatINR(painting.originalPrice)}
+                    </span>
+                  )}
+                </div>
+                <span className="text-sm text-muted-foreground">
+                  {formatUSD(painting.price)}
+                  {painting.originalPrice && (
+                    <span className="line-through ml-2">{formatUSD(painting.originalPrice)}</span>
+                  )}
+                </span>
               </div>
               {painting.originalPrice && (
                 <Badge className="bg-green-500/10 text-green-500 border-green-500/20">

@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { useCartStore, useWishlistStore, useLocaleStore, useUIStore } from '@/store';
 import type { Painting } from '@/types';
 import { cn } from '@/lib/utils';
+import { formatINR, formatUSD } from '@/lib/utils';
 
 interface PaintingCardProps {
   painting: Painting;
@@ -125,15 +126,20 @@ export function PaintingCard({ painting, index = 0, showQuickView = true }: Pain
               {painting.category} • {painting.size}
             </p>
 
-            <div className="flex items-baseline gap-2">
-              <span className="text-lg font-bold text-gold-500">
-                ₹{painting.price.toLocaleString('en-IN')}
-              </span>
-              {painting.originalPrice && (
-                <span className="text-sm text-muted-foreground line-through">
-                  ₹{painting.originalPrice.toLocaleString('en-IN')}
+            <div className="flex flex-col gap-0.5">
+              <div className="flex items-baseline gap-2">
+                <span className="text-base font-bold text-gold-500">
+                  {formatINR(painting.price)}
                 </span>
-              )}
+                {painting.originalPrice && (
+                  <span className="text-xs text-muted-foreground line-through">
+                    {formatINR(painting.originalPrice)}
+                  </span>
+                )}
+              </div>
+              <span className="text-xs text-muted-foreground">
+                {formatUSD(painting.price)}
+              </span>
             </div>
           </div>
         </Card>

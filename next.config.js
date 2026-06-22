@@ -26,7 +26,6 @@ try {
       "IMG-20210811-WA0029.jpg": 600000,    // 6 Lakh
       "IMG-20210811-WA0030.jpg": 600000,    // 6 Lakh
       "IMG-20210903-WA0032.jpg": 200000,    // 2 Lakh
-      // IMG-20210903-WA0036.jpg → no price given, skip
       "IMG-20210903-WA0037.jpg": 600000,    // 6 Lakh
       "IMG-20210903-WA0040.jpg": 100000,    // 1 Lakh
       "IMG-20210903-WA0042.jpg": 600000,    // 6 Lakh

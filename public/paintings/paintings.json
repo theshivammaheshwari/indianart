@@ -936,36 +936,7 @@
                    ],
         "createdAt":  "2024-01-01"
     },
-    {
-        "id":  31,
-        "slug":  "jungle-danger-in-the-wild",
-        "title_en":  "Jungle — Danger in the Wild",
-        "title_hi":  "जंगल — जंगल में खतरा",
-        "description_en":  "An exciting hand-painted artwork of a classic Bollywood adventure film set in the wild. This original framed piece captures the thrill and danger of the jungle setting with bold, vivid imagery and dynamic composition.",
-        "description_hi":  "जंगल में सेट एक क्लासिक बॉलीवुड साहसिक फिल्म की एक रोमांचक हाथ से बनी कलाकृति। इस मूल फ्रेमयुक्त कृति में जंगल सेटिंग के रोमांच और खतरे को साहसी, जीवंत इमेजरी के साथ चित्रित किया गया है।",
-        "category":  "Hand-Painted Poster",
-        "category_hi":  "हाथ से बनी पेंटिंग",
-        "price":  1000,
-        "originalPrice":  1200,
-        "stock":  1,
-        "size":  "Standard Frame",
-        "medium":  "Oil on Board",
-        "artist":  "Maheshwari Art Studio",
-        "weight":  "600g",
-        "tags":  [
-                     "jungle",
-                     "bollywood",
-                     "adventure",
-                     "action",
-                     "vintage"
-                 ],
-        "featured":  false,
-        "trending":  false,
-        "images":  [
-                       "/paintings/IMG-20210903-WA0036.jpg"
-                   ],
-        "createdAt":  "2024-01-01"
-    },
+
     {
         "id":  32,
         "slug":  "aradhana-worship-of-love",

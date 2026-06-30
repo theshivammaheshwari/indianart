@@ -7506,5 +7506,37 @@
                        "/paintings/indiancinemahandbillscan246.jpg"
                    ],
         "createdAt":  "2024-01-01"
+    },
+    {
+        "id": 300,
+        "slug": "lagaan-movie-canvas",
+        "title_en": "Lagaan (2001) Original Hand-Painted Canvas",
+        "title_hi": "लगान (2001) मूल हस्तनिर्मित कैनवास",
+        "description_en": "A stunning hand-painted canvas capturing the epic spirit of the Oscar-nominated Bollywood masterpiece, Lagaan (2001). This monumental artwork portrays the fierce determination and triumph of the villagers against the British Raj through the historic game of cricket. A true collector's item for cinema lovers.",
+        "description_hi": "ऑस्कर-नामांकित बॉलीवुड मास्टरपीस, लगान (2001) की महाकाव्य भावना को कैद करने वाला एक आश्चर्यजनक हाथ से चित्रित कैनवास। यह स्मारकीय कलाकृति क्रिकेट के ऐतिहासिक खेल के माध्यम से ब्रिटिश राज के खिलाफ ग्रामीणों के भयंकर दृढ़ संकल्प और जीत को दर्शाती है। सिनेमा प्रेमियों के लिए एक सच्चा संग्राहक आइटम।",
+        "category": "Hand-Painted Poster",
+        "category_hi": "हाथ से बनी पेंटिंग",
+        "price": 1500000,
+        "originalPrice": 1875000,
+        "stock": 1,
+        "size": "Standard Canvas",
+        "medium": "Oil on Canvas",
+        "artist": "Maheshwari Art Studio",
+        "weight": "800g",
+        "tags": [
+            "lagaan",
+            "aamir-khan",
+            "bollywood",
+            "cricket",
+            "epic",
+            "oscar-nominated",
+            "canvas"
+        ],
+        "featured": true,
+        "trending": true,
+        "images": [
+            "/paintings/lagaan.png"
+        ],
+        "createdAt": "2026-06-30"
     }
 ]

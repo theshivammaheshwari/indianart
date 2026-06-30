@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { ArrowRight, Star, Palette, Award, Truck, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -223,17 +224,14 @@ function AboutArtist() {
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        className="relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-amber-100 to-orange-100"
+        className="relative aspect-square rounded-2xl overflow-hidden shadow-xl"
       >
-        <div className="absolute inset-4 rounded-xl bg-white shadow-lg flex items-center justify-center">
-          <div className="text-center p-8">
-            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 mx-auto mb-6 flex items-center justify-center">
-              <span className="font-display text-4xl font-bold text-white">I</span>
-            </div>
-            <h3 className="font-display text-2xl font-bold text-amber-600">The Indian Canvas</h3>
-            <p className="text-muted-foreground mt-2">Jaipur, Rajasthan</p>
-          </div>
-        </div>
+        <Image
+          src="/brij-mohan-gupta.png"
+          alt="Brij Mohan Gupta - The Indian Canvas"
+          fill
+          className="object-cover"
+        />
       </motion.div>
 
       <motion.div

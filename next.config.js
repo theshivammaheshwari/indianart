@@ -164,11 +164,32 @@ try {
       return item;
     });
 
-    if (updatedCount > 0) {
-      fs.writeFileSync(paintingsJsonPath, JSON.stringify(updatedData, null, 4), 'utf8');
-      console.log(`[MIGRATION SUCCESS] Updated ${updatedCount} items in paintings.json (prices + stock)!`);
+    // 3. CLEANUP: Completely remove any painting that is Sold Out (stock === 0)
+    let removedCount = 0;
+    const finalData = [];
+    for (const item of updatedData) {
+      if (item.stock === 0) {
+        // Delete image files from disk
+        if (item.images && item.images.length > 0) {
+          for (const imgUrl of item.images) {
+            const imgFilename = path.basename(imgUrl);
+            const imgPath = path.join(__dirname, 'public', 'paintings', imgFilename);
+            if (fs.existsSync(imgPath)) {
+              try { fs.unlinkSync(imgPath); } catch(e) {}
+            }
+          }
+        }
+        removedCount++;
+      } else {
+        finalData.push(item);
+      }
+    }
+
+    if (updatedCount > 0 || removedCount > 0) {
+      fs.writeFileSync(paintingsJsonPath, JSON.stringify(finalData, null, 4), 'utf8');
+      console.log(`[MIGRATION SUCCESS] Updated ${updatedCount} items. Removed ${removedCount} sold out items!`);
     } else {
-      console.log(`[MIGRATION] No updates were needed.`);
+      console.log(`[MIGRATION] No updates or removals were needed.`);
     }
   }
 } catch (err) {
